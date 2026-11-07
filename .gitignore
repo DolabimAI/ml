@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# DolabımAI: katılımcı verisi, test fotoğrafları ve dışa aktarımlar depoya girmez
+data/
