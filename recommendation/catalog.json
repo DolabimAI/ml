@@ -1,0 +1,732 @@
+{
+  "source": {
+    "pull_request": "https://github.com/DolabimAI/api/pull/1",
+    "commit": "419213967d5c35a7ad264a5d31b9ee067068a435",
+    "files": [
+      "db/002_seed_lookups.sql",
+      "db/003_seed_subtypes.sql"
+    ],
+    "note": "PR başlangıç değerleri; Onur'un D5 son onayı doğrulanmadı. Yerel test sözleşmesi, A3 API sözleşmesi değildir."
+  },
+  "categories": [
+    "ust",
+    "alt",
+    "tek_parca",
+    "dis",
+    "ayakkabi",
+    "aksesuar"
+  ],
+  "styles": [
+    "gunluk",
+    "is",
+    "spor",
+    "davet"
+  ],
+  "colors": [
+    "siyah",
+    "beyaz",
+    "gri",
+    "bej",
+    "lacivert",
+    "kahverengi",
+    "kirmizi",
+    "turuncu",
+    "sari",
+    "yesil",
+    "mavi",
+    "mor",
+    "pembe"
+  ],
+  "tones": [
+    "acik",
+    "orta",
+    "koyu"
+  ],
+  "statuses": [
+    "taslak",
+    "onayli",
+    "silindi"
+  ],
+  "weather_conditions": [
+    {
+      "value": "gunesli",
+      "is_sunny": true,
+      "is_wet": false
+    },
+    {
+      "value": "parcali_bulutlu",
+      "is_sunny": false,
+      "is_wet": false
+    },
+    {
+      "value": "kapali",
+      "is_sunny": false,
+      "is_wet": false
+    },
+    {
+      "value": "sisli",
+      "is_sunny": false,
+      "is_wet": false
+    },
+    {
+      "value": "yagmurlu",
+      "is_sunny": false,
+      "is_wet": true
+    },
+    {
+      "value": "karli",
+      "is_sunny": false,
+      "is_wet": true
+    },
+    {
+      "value": "firtinali",
+      "is_sunny": false,
+      "is_wet": true
+    }
+  ],
+  "subtypes": [
+    {
+      "value": "tisort",
+      "category": "ust",
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz"
+      ],
+      "thickness": "ince",
+      "min_temp": 5,
+      "max_temp": 40,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "gomlek",
+      "category": "ust",
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar"
+      ],
+      "thickness": "ince",
+      "min_temp": -10,
+      "max_temp": 28,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "bluz",
+      "category": "ust",
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz",
+        "sonbahar"
+      ],
+      "thickness": "ince",
+      "min_temp": 0,
+      "max_temp": 32,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "kazak",
+      "category": "ust",
+      "styles": [
+        "gunluk",
+        "is"
+      ],
+      "seasons": [
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "kalin",
+      "min_temp": -20,
+      "max_temp": 15,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "sweatshirt",
+      "category": "ust",
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "orta",
+      "min_temp": -10,
+      "max_temp": 20,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "kapusonlu",
+      "category": "ust",
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "orta",
+      "min_temp": -10,
+      "max_temp": 20,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "atlet",
+      "category": "ust",
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "seasons": [
+        "yaz"
+      ],
+      "thickness": "ince",
+      "min_temp": 22,
+      "max_temp": 40,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "crop_ust",
+      "category": "ust",
+      "styles": [
+        "gunluk"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz"
+      ],
+      "thickness": "ince",
+      "min_temp": 22,
+      "max_temp": 40,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "kot",
+      "category": "alt",
+      "styles": [
+        "gunluk"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "orta",
+      "min_temp": -20,
+      "max_temp": 30,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "kumas_pantolon",
+      "category": "alt",
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "orta",
+      "min_temp": -20,
+      "max_temp": 30,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "esofman_alti",
+      "category": "alt",
+      "styles": [
+        "spor"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "orta",
+      "min_temp": -20,
+      "max_temp": 25,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "sort",
+      "category": "alt",
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "seasons": [
+        "yaz"
+      ],
+      "thickness": "ince",
+      "min_temp": 22,
+      "max_temp": 40,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "etek",
+      "category": "alt",
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz",
+        "sonbahar"
+      ],
+      "thickness": "ince",
+      "min_temp": 5,
+      "max_temp": 35,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "tayt",
+      "category": "alt",
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "ince",
+      "min_temp": -10,
+      "max_temp": 28,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "elbise",
+      "category": "tek_parca",
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz"
+      ],
+      "thickness": "ince",
+      "min_temp": 5,
+      "max_temp": 38,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "tulum",
+      "category": "tek_parca",
+      "styles": [
+        "gunluk",
+        "davet"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz"
+      ],
+      "thickness": "ince",
+      "min_temp": 5,
+      "max_temp": 32,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "mont",
+      "category": "dis",
+      "styles": [
+        "gunluk",
+        "is",
+        "spor"
+      ],
+      "seasons": [
+        "kis"
+      ],
+      "thickness": "kalin",
+      "min_temp": -20,
+      "max_temp": 10,
+      "avoid_when_wet": false,
+      "preferred_when_wet": true,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "kaban",
+      "category": "dis",
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "kalin",
+      "min_temp": -20,
+      "max_temp": 12,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "ceket",
+      "category": "dis",
+      "styles": [
+        "gunluk",
+        "is"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar"
+      ],
+      "thickness": "orta",
+      "min_temp": 8,
+      "max_temp": 20,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "blazer",
+      "category": "dis",
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar"
+      ],
+      "thickness": "orta",
+      "min_temp": 10,
+      "max_temp": 24,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "hirka",
+      "category": "dis",
+      "styles": [
+        "gunluk",
+        "is"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar"
+      ],
+      "thickness": "orta",
+      "min_temp": 10,
+      "max_temp": 22,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "yelek",
+      "category": "dis",
+      "styles": [
+        "gunluk"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar"
+      ],
+      "thickness": "orta",
+      "min_temp": 8,
+      "max_temp": 18,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "yagmurluk",
+      "category": "dis",
+      "styles": [
+        "gunluk",
+        "is",
+        "spor"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "sonbahar"
+      ],
+      "thickness": "ince",
+      "min_temp": 5,
+      "max_temp": 22,
+      "avoid_when_wet": false,
+      "preferred_when_wet": true,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "spor_ayakkabi",
+      "category": "ayakkabi",
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz",
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "ince",
+      "min_temp": -10,
+      "max_temp": 40,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": true
+    },
+    {
+      "value": "klasik_ayakkabi",
+      "category": "ayakkabi",
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz",
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "orta",
+      "min_temp": -10,
+      "max_temp": 32,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "bot",
+      "category": "ayakkabi",
+      "styles": [
+        "gunluk",
+        "is"
+      ],
+      "seasons": [
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "kalin",
+      "min_temp": -25,
+      "max_temp": 15,
+      "avoid_when_wet": false,
+      "preferred_when_wet": true,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "sandalet",
+      "category": "ayakkabi",
+      "styles": [
+        "gunluk"
+      ],
+      "seasons": [
+        "yaz"
+      ],
+      "thickness": "ince",
+      "min_temp": 22,
+      "max_temp": 45,
+      "avoid_when_wet": true,
+      "preferred_when_wet": false,
+      "preferred_when_hot": true
+    },
+    {
+      "value": "topuklu",
+      "category": "ayakkabi",
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz",
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "ince",
+      "min_temp": 5,
+      "max_temp": 35,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "babet",
+      "category": "ayakkabi",
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz",
+        "sonbahar"
+      ],
+      "thickness": "ince",
+      "min_temp": 15,
+      "max_temp": 35,
+      "avoid_when_wet": true,
+      "preferred_when_wet": false,
+      "preferred_when_hot": true
+    },
+    {
+      "value": "terlik",
+      "category": "ayakkabi",
+      "styles": [
+        "gunluk"
+      ],
+      "seasons": [
+        "yaz"
+      ],
+      "thickness": "ince",
+      "min_temp": 24,
+      "max_temp": 45,
+      "avoid_when_wet": true,
+      "preferred_when_wet": false,
+      "preferred_when_hot": true
+    },
+    {
+      "value": "atki",
+      "category": "aksesuar",
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "orta",
+      "min_temp": -30,
+      "max_temp": 50,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "bere",
+      "category": "aksesuar",
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "seasons": [
+        "sonbahar",
+        "kis"
+      ],
+      "thickness": "orta",
+      "min_temp": -30,
+      "max_temp": 50,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "eldiven",
+      "category": "aksesuar",
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "seasons": [
+        "kis"
+      ],
+      "thickness": "orta",
+      "min_temp": -30,
+      "max_temp": 50,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "sapka",
+      "category": "aksesuar",
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz"
+      ],
+      "thickness": "ince",
+      "min_temp": -30,
+      "max_temp": 50,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    },
+    {
+      "value": "gunes_gozlugu",
+      "category": "aksesuar",
+      "styles": [
+        "gunluk",
+        "is",
+        "spor"
+      ],
+      "seasons": [
+        "ilkbahar",
+        "yaz"
+      ],
+      "thickness": "ince",
+      "min_temp": -30,
+      "max_temp": 50,
+      "avoid_when_wet": false,
+      "preferred_when_wet": false,
+      "preferred_when_hot": false
+    }
+  ]
+}
