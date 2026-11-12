@@ -2,6 +2,7 @@
 
 Görüntü işleme ve öneri motoru için ortak Python deposu.
 E1 modülü, onaylanmış kıyafetlerden hava ve etkinliğe uygun kombin adayları üretir.
+E2 modülü, bu adaylar arasından sabit renk kurallarıyla Kural Kartı seçer.
 
 ## İş bölümü
 
@@ -16,8 +17,8 @@ kıyafet verilerini kullanır; mevcut test dolabı bu verileri temsil eder.
 
 ## Kurulum
 
-Python 3.12 kullanılır. E1 yalnız standart kütüphaneye ihtiyaç duyar; bu aşamada
-FastAPI, pandas veya scikit-learn kurulması gerekmez.
+Python 3.12 kullanılır. E1 ve E2 yalnız standart kütüphaneye ihtiyaç duyar;
+bu modülleri çalıştırmak için FastAPI, pandas veya scikit-learn kurulması gerekmez.
 
 ```bash
 python3.12 -m venv .venv
@@ -37,10 +38,14 @@ Komutlar depo kökünde çalıştırılır. Etkinleştirmeden de
 python -m recommendation.demo --temperature 10 --weather yagmurlu --style gunluk
 python -m recommendation.demo --temperature 28 --weather gunesli --style is
 python -m recommendation.demo --temperature 6 --weather karli --style gunluk
+python -m recommendation.demo --method rule
+python -m recommendation.demo --method rule --temperature 28 --weather gunesli --style is
 ```
 
-Demo ilk beş adayı, aday sayısını ve kullanılan yedek kuralları gösterir.
-Kart seçmez. `--seed 42` aynı girdilerle aynı aday sırasını yeniden üretir.
+Demo varsayılan olarak ilk beş adayı, aday sayısını ve kullanılan yedek kuralları
+gösterir. `--method rule` ayrıca seçilen Kural Kartını, puanını ve eşit puanlı aday
+sayısını gösterir. `--seed 42` aynı girdilerle aynı aday sırasını ve kart seçimini
+yeniden üretir.
 
 ## Veri kaynağı ve kapsam
 
@@ -90,7 +95,23 @@ havuzu kullanmalı; iki kart için E1 ayrı ayrı çalıştırılmamalıdır.
 `limit_reached`, dönen aday sayısının sınıra ulaştığını belirtir; dışarıda mutlaka
 başka geçerli aday kaldığı anlamına gelmez. Aday yoksa boş tuple döner.
 
+## E2 davranışı
+
+`select_rule_outfit(pool.candidates)` E1'in ürettiği havuzdan bir kart seçer.
+Dış giyim dahil bütün ana parça çiftleri puanlanır; aksesuarlar değerlendirilmez.
+Nötr, aynı veya komşu renk çiftleri 3; tanımlı karşıt çiftler 2; diğer çiftler 1
+puan alır. Çift puanlarının ortalamasından, ikiden fazla her farklı canlı renk için
+0,5 puan düşülür. Sonuç sıfırın altına inmez.
+
+En yüksek puanlı adaylar arasındaki eşitlik rastgele çözülür. Boş havuzda `None`
+döner. Sonuç, `outfit`, `score` ve `tied_best_count` alanlarını içerir; puan
+dökümünde ortalama, farklı canlı renk sayısı, ceza ve toplam bulunur.
+
+Renk grupları ve puanlar [rule_settings.json](recommendation/rule_settings.json)
+dosyasındadır. Ton ve desen için ek ağırlık uygulanmaz. Bu kurallar kullanıcı
+geçmişinden öğrenilmez; renk uyum bilgisi öğrenen yönteme özellik olarak verilmez.
+
 ## Dokümantasyon
 
 Geliştirme durumu, test sonuçları, uygulama kararları ve bekleyen işler
-[E1 rapor notunda](docs/E1-notes.md) tutulur.
+[E1 rapor notunda](docs/E1-notes.md) ve [E2 rapor notunda](docs/E2-notes.md) tutulur.
