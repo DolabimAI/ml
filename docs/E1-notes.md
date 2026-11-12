@@ -4,10 +4,9 @@
 
 E1'in yerel uygulaması ve davranış testleri tamamlandı. Ekip teyitleri ve C#
 entegrasyonu tamamlanmadığı için bu kayıt, uçtan uca teslim onayı anlamına gelmez.
-E2 renk puanlaması, E3/E4 öğrenme, E10 simülasyonu ve servis uçları henüz eklenmedi.
 E1 aday havuzu üretir; renk puanlaması veya kullanıcı tercihine göre kart seçimi yapmaz.
-
-E1 çalışması tamamlanıp ayrı bir commit olarak kaydedildikten sonra E2'ye geçilecek.
+Renk puanlaması ve kart seçiminin uygulaması [E2 rapor notunda](E2-notes.md) izlenir.
+E3/E4 öğrenme, E10 simülasyonu ve servis uçları bu raporun kapsamı dışındadır.
 
 ## İşleyiş
 
@@ -185,5 +184,6 @@ Bu kontroller API entegrasyon testi veya gerçek kullanıcı değerlendirmesi de
 
 ## Sonraki görevler
 
-E2 renk çemberi ve puan ayarları; E3/E4 eğitim örnekleri ve sayaçlar; E10 simülasyon.
+E2 renk çemberi ve puan ayarları [ayrı raporda](E2-notes.md) ele alınır.
+E3/E4 eğitim örnekleri ve sayaçlar; E10 simülasyon sonraki görevlerdir.
 Bunlar E1'e eklenecek eksik filtre özellikleri değil, öneri motorunun sonraki görevleridir.
