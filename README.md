@@ -3,6 +3,7 @@
 Görüntü işleme ve öneri motoru için ortak Python deposu.
 E1 modülü, onaylanmış kıyafetlerden hava ve etkinliğe uygun kombin adayları üretir.
 E2 modülü, bu adaylar arasından sabit renk kurallarıyla Kural Kartı seçer.
+E3 modülü, kombin ve bağlamı öğrenen yöntemin kullanacağı sayısal özelliklere dönüştürür.
 
 ## İş bölümü
 
@@ -17,7 +18,7 @@ kıyafet verilerini kullanır; mevcut test dolabı bu verileri temsil eder.
 
 ## Kurulum
 
-Python 3.12 kullanılır. E1 ve E2 yalnız standart kütüphaneye ihtiyaç duyar;
+Python 3.12 kullanılır. E1, E2 ve E3 yalnız standart kütüphaneye ihtiyaç duyar;
 bu modülleri çalıştırmak için FastAPI, pandas veya scikit-learn kurulması gerekmez.
 
 ```bash
@@ -40,12 +41,14 @@ python -m recommendation.demo --temperature 28 --weather gunesli --style is
 python -m recommendation.demo --temperature 6 --weather karli --style gunluk
 python -m recommendation.demo --method rule
 python -m recommendation.demo --method rule --temperature 28 --weather gunesli --style is
+python -m recommendation.demo --method features
 ```
 
 Demo varsayılan olarak ilk beş adayı, aday sayısını ve kullanılan yedek kuralları
 gösterir. `--method rule` ayrıca seçilen Kural Kartını, puanını ve eşit puanlı aday
-sayısını gösterir. `--seed 42` aynı girdilerle aynı aday sırasını ve kart seçimini
-yeniden üretir.
+sayısını gösterir. `--method features` özellik şemasını, vektör boyutunu ve ilk
+adayın sıfırdan farklı özelliklerini gösterir. `--seed 42` aynı girdilerle aynı
+aday sırasını ve kart seçimini yeniden üretir. Özellik dönüşümü rastgelelik içermez.
 
 ## Veri kaynağı ve kapsam
 
@@ -111,7 +114,25 @@ Renk grupları ve puanlar [rule_settings.json](recommendation/rule_settings.json
 dosyasındadır. Ton ve desen için ek ağırlık uygulanmaz. Bu kurallar kullanıcı
 geçmişinden öğrenilmez; renk uyum bilgisi öğrenen yönteme özellik olarak verilmez.
 
+## E3 davranışı
+
+`encode_outfit(outfit, weather, style)` bir kombin için sayısal tuple döndürür.
+`encode_outfits(candidates, weather, style)` adayların sırasını koruyarak hepsini
+kodlar; boş havuzda boş tuple verir. `feature_names()` sütun adlarını aynı sırada
+döndürür. Bu fonksiyonlar [features.py](recommendation/features.py) modülündedir.
+
+`e3_v1` şeması mevcut katalogda 126 sütundur. Üst, alt, tek parça, dış giyim ve
+ayakkabının varlığı, alt türü, rengi, tonu ve deseni ayrı alanlarda kodlanır.
+Etkinlik, hissedilen sıcaklık ve farklı canlı renk sayısı eklenir. Bulunmayan
+konumun alanları sıfırdır; aksesuarlar özelliklere dahil edilmez.
+
+E3, E2'nin puanlarını veya renk ilişkilerini kullanmaz; eğitim ya da kart seçimi
+yapmaz. Aynı şema geçmiş eğitim örnekleri ve yeni adaylar için kullanılır.
+Sütun düzeni, örnek dönüşüm ve E4'e bağlantı [E3 rapor notunda](docs/E3-notes.md)
+açıklanır.
+
 ## Dokümantasyon
 
 Geliştirme durumu, test sonuçları, uygulama kararları ve bekleyen işler
-[E1 rapor notunda](docs/E1-notes.md) ve [E2 rapor notunda](docs/E2-notes.md) tutulur.
+[E1 rapor notunda](docs/E1-notes.md), [E2 rapor notunda](docs/E2-notes.md) ve
+[E3 rapor notunda](docs/E3-notes.md) tutulur.
