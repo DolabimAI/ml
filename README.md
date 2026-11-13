@@ -4,6 +4,7 @@ Görüntü işleme ve öneri motoru için ortak Python deposu.
 E1 modülü, onaylanmış kıyafetlerden hava ve etkinliğe uygun kombin adayları üretir.
 E2 modülü, bu adaylar arasından sabit renk kurallarıyla Kural Kartı seçer.
 E3 modülü, kombin ve bağlamı öğrenen yöntemin kullanacağı sayısal özelliklere dönüştürür.
+E4 modülü, kullanıcının geçmiş kararlarından öğrenerek aynı aday havuzundan Öğrenen Kartı seçer.
 
 ## İş bölümü
 
@@ -19,11 +20,13 @@ kıyafet verilerini kullanır; mevcut test dolabı bu verileri temsil eder.
 ## Kurulum
 
 Python 3.12 kullanılır. E1, E2 ve E3 yalnız standart kütüphaneye ihtiyaç duyar;
-bu modülleri çalıştırmak için FastAPI, pandas veya scikit-learn kurulması gerekmez.
+E4 için sürümü sabitlenmiş scikit-learn ve onun bağımlılıkları kurulur.
+FastAPI veya pandas kurulması gerekmez.
 
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
+python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 python -m recommendation.demo
 ```
@@ -42,6 +45,9 @@ python -m recommendation.demo --temperature 6 --weather karli --style gunluk
 python -m recommendation.demo --method rule
 python -m recommendation.demo --method rule --temperature 28 --weather gunesli --style is
 python -m recommendation.demo --method features
+python -m recommendation.demo --method learned
+python -m recommendation.demo --method learned --history tests/sample_history.json --user-id demo
+python -m recommendation.demo --method learned --history tests/sample_history.json --user-id demo --seed 31
 ```
 
 Demo varsayılan olarak ilk beş adayı, aday sayısını ve kullanılan yedek kuralları
@@ -49,6 +55,9 @@ gösterir. `--method rule` ayrıca seçilen Kural Kartını, puanını ve eşit 
 sayısını gösterir. `--method features` özellik şemasını, vektör boyutunu ve ilk
 adayın sıfırdan farklı özelliklerini gösterir. `--seed 42` aynı girdilerle aynı
 aday sırasını ve kart seçimini yeniden üretir. Özellik dönüşümü rastgelelik içermez.
+`--method learned` geçmiş verilmezse soğuk başlangıcı gösterir. Örnek geçmişle
+varsayılan tohum model seçimini, `--seed 31` keşfi gösterir. Demo mod, sayaçlar ve
+örnek sayılarını; model seçiminde ayrıca tahmini olasılığı yazar.
 
 ## Veri kaynağı ve kapsam
 
@@ -131,8 +140,34 @@ yapmaz. Aynı şema geçmiş eğitim örnekleri ve yeni adaylar için kullanıl�
 Sütun düzeni, örnek dönüşüm ve E4'e bağlantı [E3 rapor notunda](docs/E3-notes.md)
 açıklanır.
 
+## E4 davranışı
+
+`select_learned_outfit(candidates, weather, style, history, user_id=...)` aynı E1
+havuzundan bir `LearnedSelection` seçer; boş havuzda `None` döndürür. Başka kullanıcıya
+ait geçmiş kabul edilmez. `history` karar anındaki kombin etiketlerini ve bağlamı
+taşır; güncel dolaptan veya mevcut havadan geçmiş veri türetilmez.
+
+Geçerli son karar sayısı 10'dan azsa rastgele `soguk_baslangic` seçimi yapılır.
+En az 10 karar ve hem pozitif hem negatif eğitim örneği varsa model her çağrıda
+yeniden eğitilir. Sonra %10 olasılıkla rastgele `kesif`, diğer durumda en yüksek
+`P(y=1)` puanıyla `model` seçimi yapılır. Yalnız bir sınıf varsa mod yine
+`soguk_baslangic`, neden `tek_sinif` olur. Rastgele seçimlerde olasılık verilmez.
+
+Kural kararları için ayrı öğrenme sınırı vardır: ilk 10 tamamlanmış kural kararının
+örnekleri eğitimde kalır; sınırdan sonraki kararlarda yeni kural kaynaklı örnekler
+alınmaz. Bir karşılaştırma birden çok örnek üretse de karar sayacı bir artar.
+Tam karar tablosu ve seçilen yorumlar [E4 rapor notunda](docs/E4-notes.md) açıklanır.
+
+E4, E3'ün 126 sütununu kullanır; yalnız sıcaklık ve canlı renk sayısı geçmiş eğitim
+verisine göre ölçeklenir. E2 puanları kullanılmaz. Model kullanıcılar arasında
+paylaşılmaz ve diske kaydedilmez. [Öğrenen ayarları](recommendation/learned_settings.json)
+eşikleri, keşif oranını ve model parametrelerini içerir.
+
+`tests/sample_history.json`, `demo` kullanıcısı için 12 sentetik son kararın tam
+etiket kopyalarını içerir. Bu JSON yerel test sözleşmesidir; C# API sözleşmesi değildir.
+
 ## Dokümantasyon
 
 Geliştirme durumu, test sonuçları, uygulama kararları ve bekleyen işler
 [E1 rapor notunda](docs/E1-notes.md), [E2 rapor notunda](docs/E2-notes.md) ve
-[E3 rapor notunda](docs/E3-notes.md) tutulur.
+[E3 rapor notunda](docs/E3-notes.md) ve [E4 rapor notunda](docs/E4-notes.md) tutulur.
