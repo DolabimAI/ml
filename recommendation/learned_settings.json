@@ -1,0 +1,12 @@
+{
+  "cold_start_limit": 10,
+  "rule_learning_limit": 10,
+  "exploration_rate": 0.10,
+  "solver": "lbfgs",
+  "l1_ratio": 0.0,
+  "C": 1.0,
+  "tol": 0.0001,
+  "max_iter": 1000,
+  "class_weight": null,
+  "warm_start": false
+}
