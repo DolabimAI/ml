@@ -5,6 +5,7 @@ E1 modülü, onaylanmış kıyafetlerden hava ve etkinliğe uygun kombin adaylar
 E2 modülü, bu adaylar arasından sabit renk kurallarıyla Kural Kartı seçer.
 E3 modülü, kombin ve bağlamı öğrenen yöntemin kullanacağı sayısal özelliklere dönüştürür.
 E4 modülü, kullanıcının geçmiş kararlarından öğrenerek aynı aday havuzundan Öğrenen Kartı seçer.
+E10 modülü, sentetik bir kullanıcı profiliyle iki kartı karşılaştırıp öğrenme grafiği üretir.
 
 ## İş bölümü
 
@@ -20,7 +21,8 @@ kıyafet verilerini kullanır; mevcut test dolabı bu verileri temsil eder.
 ## Kurulum
 
 Python 3.12 kullanılır. E1, E2 ve E3 yalnız standart kütüphaneye ihtiyaç duyar;
-E4 için sürümü sabitlenmiş scikit-learn ve onun bağımlılıkları kurulur.
+E4 için sürümü sabitlenmiş scikit-learn, E10 grafiği için matplotlib ve
+bunların bağımlılıkları kurulur.
 FastAPI veya pandas kurulması gerekmez.
 
 ```bash
@@ -48,6 +50,7 @@ python -m recommendation.demo --method features
 python -m recommendation.demo --method learned
 python -m recommendation.demo --method learned --history tests/sample_history.json --user-id demo
 python -m recommendation.demo --method learned --history tests/sample_history.json --user-id demo --seed 31
+python -m recommendation.synthetic --profile notr_koyu
 ```
 
 Demo varsayılan olarak ilk beş adayı, aday sayısını ve kullanılan yedek kuralları
@@ -166,8 +169,25 @@ eşikleri, keşif oranını ve model parametrelerini içerir.
 `tests/sample_history.json`, `demo` kullanıcısı için 12 sentetik son kararın tam
 etiket kopyalarını içerir. Bu JSON yerel test sözleşmesidir; C# API sözleşmesi değildir.
 
+## E10 davranışı
+
+**Sonuçlar sentetiktir; gerçek kullanıcı verisi değildir.**
+`python -m recommendation.synthetic --profile <profil>` her karşılaştırmada bağlam
+(sıcaklık, hava, etkinlik) çeker, E1'i bir kez çalıştırır ve aynı havuzdan E2 Kural
+Kartını ve E4 Öğrenen Kartını seçer. Profil iki kartı kendi zevk kuralıyla karşılaştırır;
+sonuç (KT, OT, HB, AT, AR) `ComparisonDecision` olarak geçmişe eklenir ve bir sonraki
+öğrenen seçimine verilir. Profil parça değiştirmez ve tepkisiz kalmaz.
+
+Profiller [synthetic_profiles.json](recommendation/synthetic_profiles.json), tekrar
+sayısı, karar sayısı, pencere ve bağlam dağılımı
+[synthetic_settings.json](recommendation/synthetic_settings.json) dosyasındadır.
+Komut `docs/figures/E10-<profil>.png` grafiğini ve sıra sıra değerleri içeren CSV'yi
+yazar. `--runs`, `--decisions`, `--output-dir`, `--wardrobe` ve `--no-plot` seçenekleri
+vardır. İlk profil `notr_koyu`; kalan dört profil persona kartları kesinleşince eklenir.
+
 ## Dokümantasyon
 
 Geliştirme durumu, test sonuçları, uygulama kararları ve bekleyen işler
-[E1 rapor notunda](docs/E1-notes.md), [E2 rapor notunda](docs/E2-notes.md) ve
-[E3 rapor notunda](docs/E3-notes.md) ve [E4 rapor notunda](docs/E4-notes.md) tutulur.
+[E1 rapor notunda](docs/E1-notes.md), [E2 rapor notunda](docs/E2-notes.md),
+[E3 rapor notunda](docs/E3-notes.md), [E4 rapor notunda](docs/E4-notes.md) ve
+[E10 rapor notunda](docs/E10-notes.md) tutulur.
