@@ -3,4 +3,9 @@ fastapi==0.163.1
 uvicorn==0.54.0
 # TestClient (tests/test_service.py) için gerekli
 httpx==0.28.1
+# Görüntü modülü (D2, D6)
+rembg==2.0.87
+onnxruntime==1.32.0
+pillow==13.0.0
+numpy==2.5.5
 matplotlib==3.11.2
