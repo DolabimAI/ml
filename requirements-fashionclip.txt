@@ -1,0 +1,5 @@
+# D4: gerçek FashionCLIP modeli için ek bağımlılıklar (servisi model olmadan da çalıştırmak mümkündür).
+# UYARI: bu sürümlerin birlikte kurulumu ve `from transformers import CLIPModel` içe aktarması geliştirme
+# ortamında denenemedi (Hugging Face erişimi yoktu). İlk kurulumda hata çıkarsa D3'te düzeltilecek.
+transformers==5.23.0
+torch==2.15.0
