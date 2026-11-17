@@ -1,0 +1,21 @@
+{
+  "_note": "D6 renk eşikleri. Plandaki sayılar (B) ve Ortak Kod Listesi'ndeki önerilen sayılar. D3'te gerçek fotoğraflarla ayarlanır, 7 Aralık'ta dondurulur. Aralıklarda alt sınır dahil, üst sınır hariçtir.",
+  "kmeans": {"clusters": 3, "random_state": 0, "n_init": 10},
+  "pattern_second_group_share": 0.30,
+  "neutral_saturation_max": 15,
+  "white_value_min": 85,
+  "black_value_max": 20,
+  "navy": {"hue_min": 170, "hue_max": 250, "value_max": 35},
+  "beige": {"hue_min": 20, "hue_max": 50, "saturation_max": 35, "value_min": 70},
+  "brown": {"hue_min": 15, "hue_max": 40, "value_max": 50},
+  "hue_ranges": [
+    {"color": "kirmizi", "from": 345, "to": 15},
+    {"color": "turuncu", "from": 15, "to": 40},
+    {"color": "sari", "from": 40, "to": 70},
+    {"color": "yesil", "from": 70, "to": 170},
+    {"color": "mavi", "from": 170, "to": 250},
+    {"color": "mor", "from": 250, "to": 290},
+    {"color": "pembe", "from": 290, "to": 345}
+  ],
+  "tone": {"dark_value_max": 50, "light_value_min": 75, "light_saturation_max": 50}
+}
