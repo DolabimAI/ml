@@ -1,0 +1,9 @@
+{
+  "notr_koyu": {
+    "description": "Yalnızca nötr ve koyu renk seçen kullanıcı",
+    "liked_colors": ["siyah", "beyaz", "gri", "bej", "lacivert", "kahverengi"],
+    "liked_tones": ["koyu"],
+    "liked_patterned": null,
+    "accept_threshold": 0.5
+  }
+}

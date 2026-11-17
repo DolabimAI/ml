@@ -1,0 +1,9 @@
+{
+  "decision_count": 50,
+  "run_count": 20,
+  "window": 10,
+  "base_seed": 42,
+  "temperatures": [0, 3, 6, 9, 12, 15],
+  "conditions": ["gunesli", "parcali_bulutlu", "kapali", "sisli", "yagmurlu", "karli"],
+  "style_weights": {"gunluk": 0.6, "is": 0.25, "spor": 0.1, "davet": 0.05}
+}
