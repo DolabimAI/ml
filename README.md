@@ -62,6 +62,24 @@ aday sırasını ve kart seçimini yeniden üretir. Özellik dönüşümü rastg
 varsayılan tohum model seçimini, `--seed 31` keşfi gösterir. Demo mod, sayaçlar ve
 örnek sayılarını; model seçiminde ayrıca tahmini olasılığı yazar.
 
+## Servis (D1)
+
+Görüntü (`vision/`) ve öneri (`recommendation/`) modülleri tek FastAPI servisinde çalışır.
+
+```bash
+cp .env.example .env          # Windows: copy .env.example .env
+python -m uvicorn service.main:app --reload
+curl http://127.0.0.1:8000/health
+```
+
+- `GET /health` servis durumunu, bağlanan modülleri ve ortak kod sayılarını döner.
+- Bir modül, `<modül>/router.py` içinde `router` adlı bir `APIRouter` tanımladığı anda servis onu
+  kendiliğinden bağlar; `service/main.py`'ye dokunmak gerekmez. Ömer için: `recommendation/router.py`.
+- Ortak kodlar (35 alt tür, 13 renk, 3 ton) tek kaynak olan `shared/codes.json` dosyasındadır ve
+  `service/codes.py` ile okunur. Kodlar C# ve öneri modülüyle harfi harfine aynı kalmalıdır.
+- Ayarlar `.env` dosyasından okunur (`service/config.py`). Gerçek `.env` depoya girmez.
+- Python veritabanına bağlanmaz; görüntü modülü yalnızca görsel deposuna yazar.
+
 ## Veri kaynağı ve kapsam
 
 - Kodlar ve alt tür başlangıç değerleri:

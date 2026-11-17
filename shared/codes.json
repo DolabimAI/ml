@@ -1,0 +1,247 @@
+{
+  "_note": "Ortak kod listesi (DolabımAI Ortak Kod Listesi ve Sabit Tablolar, 7 Kasım) ve Supabase 099_kontrol çıktısıyla doğrulandı. value kodları üç depoda aynıdır; 7 Aralık'ta donar.",
+  "categories": [
+    "ust",
+    "alt",
+    "tek_parca",
+    "dis",
+    "ayakkabi",
+    "aksesuar"
+  ],
+  "subtypes": [
+    {
+      "value": "tisort",
+      "display_name": "Tişört",
+      "category": "ust"
+    },
+    {
+      "value": "gomlek",
+      "display_name": "Gömlek",
+      "category": "ust"
+    },
+    {
+      "value": "bluz",
+      "display_name": "Bluz",
+      "category": "ust"
+    },
+    {
+      "value": "kazak",
+      "display_name": "Kazak",
+      "category": "ust"
+    },
+    {
+      "value": "sweatshirt",
+      "display_name": "Sweatshirt",
+      "category": "ust"
+    },
+    {
+      "value": "kapusonlu",
+      "display_name": "Kapüşonlu",
+      "category": "ust"
+    },
+    {
+      "value": "atlet",
+      "display_name": "Atlet",
+      "category": "ust"
+    },
+    {
+      "value": "crop_ust",
+      "display_name": "Crop üst",
+      "category": "ust"
+    },
+    {
+      "value": "kot",
+      "display_name": "Kot pantolon",
+      "category": "alt"
+    },
+    {
+      "value": "kumas_pantolon",
+      "display_name": "Kumaş pantolon",
+      "category": "alt"
+    },
+    {
+      "value": "esofman_alti",
+      "display_name": "Eşofman altı",
+      "category": "alt"
+    },
+    {
+      "value": "sort",
+      "display_name": "Şort",
+      "category": "alt"
+    },
+    {
+      "value": "etek",
+      "display_name": "Etek",
+      "category": "alt"
+    },
+    {
+      "value": "tayt",
+      "display_name": "Tayt",
+      "category": "alt"
+    },
+    {
+      "value": "elbise",
+      "display_name": "Elbise",
+      "category": "tek_parca"
+    },
+    {
+      "value": "tulum",
+      "display_name": "Tulum",
+      "category": "tek_parca"
+    },
+    {
+      "value": "mont",
+      "display_name": "Mont",
+      "category": "dis"
+    },
+    {
+      "value": "kaban",
+      "display_name": "Kaban",
+      "category": "dis"
+    },
+    {
+      "value": "ceket",
+      "display_name": "Ceket",
+      "category": "dis"
+    },
+    {
+      "value": "blazer",
+      "display_name": "Blazer",
+      "category": "dis"
+    },
+    {
+      "value": "hirka",
+      "display_name": "Hırka",
+      "category": "dis"
+    },
+    {
+      "value": "yelek",
+      "display_name": "Yelek",
+      "category": "dis"
+    },
+    {
+      "value": "yagmurluk",
+      "display_name": "Yağmurluk",
+      "category": "dis"
+    },
+    {
+      "value": "spor_ayakkabi",
+      "display_name": "Spor ayakkabı",
+      "category": "ayakkabi"
+    },
+    {
+      "value": "klasik_ayakkabi",
+      "display_name": "Klasik ayakkabı",
+      "category": "ayakkabi"
+    },
+    {
+      "value": "bot",
+      "display_name": "Bot",
+      "category": "ayakkabi"
+    },
+    {
+      "value": "sandalet",
+      "display_name": "Sandalet",
+      "category": "ayakkabi"
+    },
+    {
+      "value": "topuklu",
+      "display_name": "Topuklu",
+      "category": "ayakkabi"
+    },
+    {
+      "value": "babet",
+      "display_name": "Babet",
+      "category": "ayakkabi"
+    },
+    {
+      "value": "terlik",
+      "display_name": "Terlik",
+      "category": "ayakkabi"
+    },
+    {
+      "value": "atki",
+      "display_name": "Atkı",
+      "category": "aksesuar"
+    },
+    {
+      "value": "bere",
+      "display_name": "Bere",
+      "category": "aksesuar"
+    },
+    {
+      "value": "eldiven",
+      "display_name": "Eldiven",
+      "category": "aksesuar"
+    },
+    {
+      "value": "sapka",
+      "display_name": "Şapka",
+      "category": "aksesuar"
+    },
+    {
+      "value": "gunes_gozlugu",
+      "display_name": "Güneş gözlüğü",
+      "category": "aksesuar"
+    }
+  ],
+  "colors": [
+    {
+      "value": "siyah",
+      "group": "notr"
+    },
+    {
+      "value": "beyaz",
+      "group": "notr"
+    },
+    {
+      "value": "gri",
+      "group": "notr"
+    },
+    {
+      "value": "bej",
+      "group": "notr"
+    },
+    {
+      "value": "lacivert",
+      "group": "notr"
+    },
+    {
+      "value": "kahverengi",
+      "group": "notr"
+    },
+    {
+      "value": "kirmizi",
+      "group": "canli"
+    },
+    {
+      "value": "turuncu",
+      "group": "canli"
+    },
+    {
+      "value": "sari",
+      "group": "canli"
+    },
+    {
+      "value": "yesil",
+      "group": "canli"
+    },
+    {
+      "value": "mavi",
+      "group": "canli"
+    },
+    {
+      "value": "mor",
+      "group": "canli"
+    },
+    {
+      "value": "pembe",
+      "group": "canli"
+    }
+  ],
+  "tones": [
+    "acik",
+    "orta",
+    "koyu"
+  ]
+}
