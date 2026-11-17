@@ -1,0 +1,12 @@
+{
+  "_note": "D2 görsel ayarları. 200-300 KB hedefi plandan; diğer değerler başlangıç değeridir, D3'te ayarlanır.",
+  "background_model": "u2net",
+  "max_side_px": 1024,
+  "min_side_px": 256,
+  "webp_quality": 85,
+  "webp_min_quality": 60,
+  "webp_quality_step": 10,
+  "target_max_bytes": 300000,
+  "mask_alpha_threshold": 128,
+  "mask_max_pixels": 20000
+}
