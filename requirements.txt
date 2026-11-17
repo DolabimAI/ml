@@ -8,3 +8,4 @@ rembg==2.0.87
 onnxruntime==1.32.0
 pillow==13.0.0
 numpy==2.5.5
+matplotlib==3.11.2
