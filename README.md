@@ -80,6 +80,22 @@ curl http://127.0.0.1:8000/health
 - Ayarlar `.env` dosyasından okunur (`service/config.py`). Gerçek `.env` depoya girmez.
 - Python veritabanına bağlanmaz; görüntü modülü yalnızca görsel deposuna yazar.
 
+## Görüntü modülü (D2–D6)
+
+| Dosya | Görev |
+|---|---|
+| `vision/background.py`, `image_settings.json` | Arka plan temizleme (rembg u2net), WebP küçültme (300 KB hedefi), kıyafet maskesi |
+| `vision/storage.py` | Temiz görseli Supabase deposuna yazar; yol `<bucket>/<kullanıcı-id>/<rastgele-ad>.webp` |
+| `vision/subtype.py`, `subtype_settings.json` | FashionCLIP alt tür tahmini; 35 etiket ifadesi, güven eşiği 0,40 |
+| `vision/color.py`, `color_settings.json` | k-means, HSV, nötr renk tablosu, ton ve desen |
+| `vision/check.py` | D3: 20 fotoğrafta kontrol (`python -m vision.check --photos ... --labels ...`) |
+| `shared/subtypes.json` | D5: `subtypes` tablosunun 35 satırı (Zehra yükler) |
+
+Eşikler ve etiket ifadeleri kodda değil ayar dosyalarındadır; 7 Aralık'ta dondurulur.
+Arka plan modeli testi isteğe bağlıdır: `ML_RUN_MODEL_TESTS=1 python -m unittest tests.test_background`
+(u2net ağırlıklarını ~176 MB indirir). FashionCLIP için ek bağımlılıklar `requirements-fashionclip.txt`
+içindedir; bu kurulum ve gerçek modelle tahmin henüz denenmedi.
+
 ## Veri kaynağı ve kapsam
 
 - Kodlar ve alt tür başlangıç değerleri:
