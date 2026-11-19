@@ -5,6 +5,7 @@ E1 modülü, onaylanmış kıyafetlerden hava ve etkinliğe uygun kombin adaylar
 E2 modülü, bu adaylar arasından sabit renk kurallarıyla Kural Kartı seçer.
 E3 modülü, kombin ve bağlamı öğrenen yöntemin kullanacağı sayısal özelliklere dönüştürür.
 E4 modülü, kullanıcının geçmiş kararlarından öğrenerek aynı aday havuzundan Öğrenen Kartı seçer.
+E6 modülü, iki karta birlikte eklenecek aksesuarları ortak ve sabit bir kuralla seçer.
 E10 modülü, sentetik bir kullanıcı profiliyle iki kartı karşılaştırıp öğrenme grafiği üretir.
 
 ## İş bölümü
@@ -50,6 +51,9 @@ python -m recommendation.demo --method features
 python -m recommendation.demo --method learned
 python -m recommendation.demo --method learned --history tests/sample_history.json --user-id demo
 python -m recommendation.demo --method learned --history tests/sample_history.json --user-id demo --seed 31
+python -m recommendation.demo --method accessories --temperature 5 --weather kapali
+python -m recommendation.demo --method accessories --temperature 28 --weather gunesli
+python -m recommendation.demo --method accessories --temperature 28 --weather gunesli --night
 python -m recommendation.synthetic --profile notr_koyu
 ```
 
@@ -61,6 +65,9 @@ aday sırasını ve kart seçimini yeniden üretir. Özellik dönüşümü rastg
 `--method learned` geçmiş verilmezse soğuk başlangıcı gösterir. Örnek geçmişle
 varsayılan tohum model seçimini, `--seed 31` keşfi gösterir. Demo mod, sayaçlar ve
 örnek sayılarını; model seçiminde ayrıca tahmini olasılığı yazar.
+`--method accessories` aynı havuzdan iki kartı seçip E6 aksesuarlarını, ortalama çift
+puanını ve eşit puanlı aday sayısını yazar. Varsayılan istek gündüzdür ve aksesuar
+istenmiştir; `--night` akşam/gece isteğini, `--no-accessories` aksesuar istenmemesini gösterir.
 
 ## Servis (D1)
 
@@ -203,6 +210,25 @@ eşikleri, keşif oranını ve model parametrelerini içerir.
 `tests/sample_history.json`, `demo` kullanıcısı için 12 sentetik son kararın tam
 etiket kopyalarını içerir. Bu JSON yerel test sözleşmesidir; C# API sözleşmesi değildir.
 
+## E6 davranışı
+
+`select_accessories(cards, wardrobe, weather, style, is_daytime=..., wants_accessories=...)`
+bir ya da iki kart için **tek** aksesuar listesi döndürür; aynı aksesuarlar iki karta
+eklenir. Aksesuar istenmediyse liste boştur. Hissedilen sıcaklık 10 °C'nin altındaysa
+atkı, bere ve eldiven; gündüz, güneşli ve 20 °C'nin üstündeyse şapka ve güneş gözlüğü
+aday olur. Etkinlik izin tablosunun izin vermediği ve dolapta onaylı olmayan aksesuar çıkar.
+
+Aynı türden birden fazla aday varsa her aday, kartların referans parçasıyla E2 çift
+puanına göre puanlanır ve iki kartın ortalaması en yüksek olan seçilir; tek kartta yalnız
+o kart kullanılır. Referans parça dış giyimdir, yoksa üst giyim, tek parça şablonunda tek
+parçadır. Eşit puanlılar dışarıdan verilen `rng` ile seçilir. E5 aksesuar değiştirmede
+(`ortak_kural`) aynı `accessory_candidates` ve `rank_accessories` fonksiyonlarını seçilen
+kombinin o anki hâliyle kullanacak.
+
+Eşikler ve izin tablosu [aksesuar ayarlarında](recommendation/accessory_settings.json)
+durur. Parçanın `styles` alanı aksesuarda kullanılmaz. Aksesuar seçimi öğrenmeye girmez.
+Kural gerekçeleri ve seçilen yorumlar [E6 rapor notunda](docs/E6-notes.md) açıklanır.
+
 ## E10 davranışı
 
 **Sonuçlar sentetiktir; gerçek kullanıcı verisi değildir.**
@@ -223,5 +249,5 @@ vardır. İlk profil `notr_koyu`; kalan dört profil persona kartları kesinleş
 
 Geliştirme durumu, test sonuçları, uygulama kararları ve bekleyen işler
 [E1 rapor notunda](docs/E1-notes.md), [E2 rapor notunda](docs/E2-notes.md),
-[E3 rapor notunda](docs/E3-notes.md), [E4 rapor notunda](docs/E4-notes.md) ve
-[E10 rapor notunda](docs/E10-notes.md) tutulur.
+[E3 rapor notunda](docs/E3-notes.md), [E4 rapor notunda](docs/E4-notes.md),
+[E6 rapor notunda](docs/E6-notes.md) ve [E10 rapor notunda](docs/E10-notes.md) tutulur.
