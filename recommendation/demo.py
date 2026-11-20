@@ -12,7 +12,8 @@ from .rule_based import select_rule_outfit
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="DolabımAI aday, kart ve özellik vektörü demosu")
-    parser.add_argument("--method", choices=("candidates", "rule", "features", "learned"), default="candidates")
+    parser.add_argument("--method", choices=("candidates", "rule", "features", "learned", "accessories"),
+                        default="candidates")
     parser.add_argument("--history", type=Path, help="Yerel karşılaştırma geçmişi JSON'u")
     parser.add_argument("--user-id", default="demo")
     parser.add_argument("--temperature", type=float, default=24)
@@ -20,6 +21,8 @@ def main() -> None:
                         default="yagmurlu")
     parser.add_argument("--style", choices=load_catalog()["styles"], default="gunluk")
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--night", action="store_true", help="Akşam/gece isteği (aksesuar demosu)")
+    parser.add_argument("--no-accessories", action="store_true", help="Formda aksesuar istenmedi")
     parser.add_argument("--wardrobe", type=Path,
                         default=Path(__file__).resolve().parents[1] / "tests" / "sample_wardrobe.json")
     args = parser.parse_args()
@@ -78,6 +81,31 @@ def main() -> None:
         print(f"Pozitif örnek: {learned.positive_count} | Negatif örnek: {learned.negative_count}")
         if learned.probability is not None:
             print(f"Model olasılığı P(y=1): {learned.probability:.6f}")
+    if args.method == "accessories":
+        from .accessory import select_accessories
+        from .history import load_history
+        from .learned import select_learned_outfit
+
+        history = load_history(args.history) if args.history is not None else ()
+        rule = select_rule_outfit(pool.candidates, rng=random.Random(args.seed))
+        learned = select_learned_outfit(pool.candidates, weather, args.style, history,
+                                       user_id=args.user_id, rng=random.Random(args.seed))
+        if rule is None or learned is None:
+            print("Aksesuar seçilmedi: kart yok.")
+            return
+        cards =(rule.outfit,) if rule.outfit.key == learned.outfit.key else (rule.outfit, learned.outfit)
+        wardrobe = load_wardrobe(args.wardrobe)
+        choices = select_accessories(cards, wardrobe, weather, args.style, is_daytime=not args.night,
+                                     wants_accessories=not args.no_accessories,
+                                     rng=random.Random(args.seed))
+        print(f"\nKart sayısı: {len(cards)} | Gündüz: {not args.night} | "
+              f"Aksesuar istendi: {not args.no_accessories}")
+        if not choices:
+            print("Bu bağlamda aksesuar yok.")
+        for choice in choices:
+            item = choice.item
+            print(f"  {item.subtype}#{item.id}: {item.color} | Ortalama çift puanı: "
+                  f"{choice.average_score:.3f} | Eşit aday: {choice.tied_best_count}")
 
 
 if __name__ == "__main__":

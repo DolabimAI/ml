@@ -1,0 +1,12 @@
+{
+  "cold_below_c": 10,
+  "cold_subtypes": ["atki", "bere", "eldiven"],
+  "warm_above_c": 20,
+  "warm_subtypes": ["sapka", "gunes_gozlugu"],
+  "allowed_by_style": {
+    "gunluk": ["atki", "bere", "eldiven", "sapka", "gunes_gozlugu"],
+    "is": ["atki", "eldiven", "gunes_gozlugu"],
+    "spor": ["bere", "sapka", "gunes_gozlugu"],
+    "davet": ["atki", "eldiven"]
+  }
+}
