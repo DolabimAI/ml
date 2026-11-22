@@ -104,6 +104,45 @@ Arka plan modeli testi isteğe bağlıdır: `ML_RUN_MODEL_TESTS=1 python -m unit
 (u2net ağırlıklarını ~176 MB indirir). FashionCLIP için ek bağımlılıklar `requirements-fashionclip.txt`
 içindedir; bu kurulum ve gerçek modelle tahmin henüz denenmedi.
 
+## Görüntü servisini sıfırdan kurma (D8)
+
+Bu bölüm yeni bir bilgisayarda (Mac veya Windows) `/analyze` ucunu çalıştırmak içindir.
+Öneri motoru için yukarıdaki "Kurulum" yeterlidir; burada ek olarak görüntü modelleri kurulur.
+
+**Gerekenler:** Python 3.12 (`.python-version` dosyası 3.12'dir), Git, yaklaşık 3 GB boş disk, ilk indirme için internet.
+
+| Adım | Mac / Linux | Windows (cmd) |
+|---|---|---|
+| Sanal ortam | `python3.12 -m venv .venv` | `py -3.12 -m venv .venv` |
+| Etkinleştirme | `source .venv/bin/activate` | `.venv\Scripts\activate` |
+| Temel paketler | `python -m pip install -r requirements.txt` | aynı |
+| FashionCLIP paketleri | `python -m pip install -r requirements-fashionclip.txt` | aynı |
+| Ayar dosyası | `cp .env.example .env` | `copy .env.example .env` |
+
+1. `.env` içine `SUPABASE_URL` ve `SUPABASE_SERVICE_KEY` değerlerini yazın. Anahtarı Zehra ayrıca verir; **sohbete, commit'e veya PR'a yazılmaz**. `.env` Git tarafından yok sayılır.
+2. C# tarafında `appsettings.json > Python:BaseUrl`, `.env` içindeki `ML_HOST` ve `ML_PORT` ile aynı adres olmalıdır (geliştirmede `http://localhost:8000`).
+3. Modeller ilk çalıştırmada kendiliğinden iner ve yerel önbelleğe yazılır:
+   - arka plan modeli u2net (rembg), yaklaşık 176 MB, `~/.u2net` klasörüne;
+   - FashionCLIP (`patrickjohncyh/fashion-clip`), yaklaşık 600 MB, Hugging Face önbelleğine (`~/.cache/huggingface`).
+
+   İlk açılış bu yüzden dakikalar sürebilir; sonraki açılışlar önbellekten yüklenir. Önceden indirmek için servisi bir kez açıp `GET /health` cevabını beklemek yeterlidir.
+4. Servisi başlatın (depo kökünde): `python -m uvicorn service.main:app --host 127.0.0.1 --port 8000`.
+5. Denemek için: `curl http://127.0.0.1:8000/health`, ardından aşağıdaki `/analyze` örneği.
+
+**Bellek ölçümü.** Servis açık ve boştayken ve bir `/analyze` isteğinden sonra süreç belleğine bakın.
+Mac/Linux: `ps -o rss= -p <PID>` (KB cinsinden). Windows: Görev Yöneticisi'nde `python.exe` satırının "Bellek" değeri.
+Ölçülen değerleri `docs/D3-notes.md` dosyasına, hangi bilgisayarda ölçüldüğüyle birlikte yazın; başka bilgisayardaki değer buradan tahmin edilmez.
+
+**Sık sorunlar**
+
+| Belirti | Neden / çözüm |
+|---|---|
+| `ModuleNotFoundError: multipart` | `requirements.txt` kurulmamış; `python -m pip install -r requirements.txt` |
+| Açılışta `model yüklenemedi` log'u | FashionCLIP paketleri kurulmamış ya da indirme başarısız; internet ve `requirements-fashionclip.txt` kontrol edilir. Servis açılır, model ilk istekte yeniden denenir. |
+| `500 internal_error` | `.env` içinde `SUPABASE_URL` / `SUPABASE_SERVICE_KEY` boş olabilir ya da bucket (`gorseller`) yoktur; ayrıntı servis log'unda |
+| C# `502 analysis_failed` | Python kapalı, adres farklı ya da istek 30 sn'yi aştı; önce `/health` |
+| `.venv` etkinleşmiyor (Windows PowerShell) | `cmd` kullanın ya da `Set-ExecutionPolicy -Scope Process RemoteSigned` |
+
 ## POST /analyze (D7)
 
 Sözleşme: [`DolabimAI/api` → `contracts/python-api.md`](https://github.com/DolabimAI/api/blob/main/contracts/python-api.md), bölüm 5 ve 8.
