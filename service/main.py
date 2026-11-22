@@ -11,11 +11,13 @@ from __future__ import annotations
 
 import importlib
 import importlib.util
+from contextlib import asynccontextmanager
 
 from fastapi import APIRouter, FastAPI
 
 from service import codes
 from service.config import load_settings
+from service.errors import register_error_handlers
 
 MODULES = ("vision", "recommendation")
 
@@ -28,15 +30,28 @@ def _load_router(module: str) -> APIRouter | None:
 
 def create_app() -> FastAPI:
     settings = load_settings()
-    app = FastAPI(title="DolabımAI ml servisi", version="0.1.0")
-    app.state.settings = settings
-
     loaded: list[str] = []
+    routers: dict[str, APIRouter] = {}
     for module in MODULES:
         router = _load_router(module)
         if router is not None:
-            app.include_router(router)
+            routers[module] = router
             loaded.append(module)
+
+    @asynccontextmanager
+    async def lifespan(_: FastAPI):
+        # Modeller servis açılırken bir kez yüklenir: modülün router.py dosyasında `warm_up()` varsa çağrılır.
+        for module in loaded:
+            warm_up = getattr(importlib.import_module(f"{module}.router"), "warm_up", None)
+            if warm_up is not None:
+                warm_up()
+        yield
+
+    app = FastAPI(title="DolabımAI ml servisi", version="0.1.0", lifespan=lifespan)
+    app.state.settings = settings
+    register_error_handlers(app)
+    for router in routers.values():
+        app.include_router(router)
 
     @app.get("/health")
     def health() -> dict:
