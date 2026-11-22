@@ -34,15 +34,21 @@ def open_image(data: bytes) -> Image.Image:
         raise ImageError("görsel açılamadı") from exc
 
 
+def get_session(settings: dict | None = None):
+    """rembg oturumunu süreç başına bir kez yükler (D7: servis açılırken çağrılır)."""
+    global _session
+    from rembg import new_session  # ağır bağımlılık, yalnızca gerektiğinde içe aktarılır
+
+    if _session is None:
+        _session = new_session((settings or load_image_settings())["background_model"])
+    return _session
+
+
 def remove_background(img: Image.Image, settings: dict | None = None) -> Image.Image:
     """Arka planı saydamlaştırır (RGBA döner). Model ilk çağrıda bir kez yüklenir."""
-    global _session
-    from rembg import new_session, remove  # ağır bağımlılık, yalnızca gerektiğinde içe aktarılır
+    from rembg import remove
 
-    settings = settings or load_image_settings()
-    if _session is None:
-        _session = new_session(settings["background_model"])
-    return remove(img, session=_session).convert("RGBA")
+    return remove(img, session=get_session(settings)).convert("RGBA")
 
 
 def shrink_to_webp(rgba: Image.Image, settings: dict | None = None) -> tuple[bytes, tuple[int, int]]:

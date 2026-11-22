@@ -92,7 +92,8 @@ curl http://127.0.0.1:8000/health
 | Dosya | Görev |
 |---|---|
 | `vision/background.py`, `image_settings.json` | Arka plan temizleme (rembg u2net), WebP küçültme (300 KB hedefi), kıyafet maskesi |
-| `vision/storage.py` | Temiz görseli Supabase deposuna yazar; yol `<bucket>/<kullanıcı-id>/<rastgele-ad>.webp` |
+| `vision/storage.py` | Temiz görseli Supabase deposuna yazar, gerekirse siler; yol `<kullanıcı-id>/<rastgele-ad>.webp` (bucket içinde) |
+| `vision/router.py` | D7: `POST /analyze` (görsel işleme + alt tür + renk, ton, desen tek istekte) |
 | `vision/subtype.py`, `subtype_settings.json` | FashionCLIP alt tür tahmini; 35 etiket ifadesi, güven eşiği 0,40 |
 | `vision/color.py`, `color_settings.json` | k-means, HSV, nötr renk tablosu, ton ve desen |
 | `vision/check.py` | D3: 20 fotoğrafta kontrol (`python -m vision.check --photos ... --labels ...`) |
@@ -102,6 +103,22 @@ Eşikler ve etiket ifadeleri kodda değil ayar dosyalarındadır; 7 Aralık'ta d
 Arka plan modeli testi isteğe bağlıdır: `ML_RUN_MODEL_TESTS=1 python -m unittest tests.test_background`
 (u2net ağırlıklarını ~176 MB indirir). FashionCLIP için ek bağımlılıklar `requirements-fashionclip.txt`
 içindedir; bu kurulum ve gerçek modelle tahmin henüz denenmedi.
+
+## POST /analyze (D7)
+
+Sözleşme: [`DolabimAI/api` → `contracts/python-api.md`](https://github.com/DolabimAI/api/blob/main/contracts/python-api.md), bölüm 5 ve 8.
+
+```bash
+curl -F image=@foto.jpg -F userId=178eaf32-7cf1-4399-8957-6532e4c7fc91 http://127.0.0.1:8000/analyze
+```
+
+- Cevap `200`: `imagePath`, `subtype`, `subtypeConfidence` (3 ondalık), `color`, `tone`, `isPatterned`, `rawColor` (camelCase).
+- Python güven ne olursa olsun en olası alt türü döner; 0,40 eşiğini C# uygular.
+- Hatalar `{"code","message"}` biçimindedir: `422 image_unreadable`, `422 invalid_request`, `500 internal_error`.
+- Görsel depoya yazıldıktan sonra bir adım başarısız olursa yazılan görsel silinir.
+- Modeller (rembg, FashionCLIP) servis açılırken bir kez yüklenir; her istek süresi log'a yazılır.
+- Gerçek bir istek `SUPABASE_URL` ve `SUPABASE_SERVICE_KEY` ister (`.env`); testler depoyu ve modelleri taklit eder
+  (`tests/test_analyze.py`), gerçek modelle ve gerçek depoyla deneme henüz yapılmadı.
 
 ## Veri kaynağı ve kapsam
 
