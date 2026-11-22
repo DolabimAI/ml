@@ -1,0 +1,1133 @@
+{
+  "userId": "178eaf32-7cf1-4399-8957-6532e4c7fc91",
+  "context": {
+    "feelsLikeTemp": 9.4,
+    "weatherCondition": "yagmurlu",
+    "timeOfDay": "aksam",
+    "isDaytime": false,
+    "eventStyle": "gunluk",
+    "wantsAccessories": true
+  },
+  "wardrobe": [
+    {
+      "id": 1,
+      "subtype": "tisort",
+      "category": "ust",
+      "color": "beyaz",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "minTemp": 5,
+      "maxTemp": 40,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 2,
+      "subtype": "tisort",
+      "category": "ust",
+      "color": "siyah",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "minTemp": 5,
+      "maxTemp": 40,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 3,
+      "subtype": "gomlek",
+      "category": "ust",
+      "color": "mavi",
+      "tone": "acik",
+      "isPatterned": true,
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "minTemp": -10,
+      "maxTemp": 28,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 4,
+      "subtype": "gomlek",
+      "category": "ust",
+      "color": "beyaz",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "minTemp": -10,
+      "maxTemp": 28,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 5,
+      "subtype": "kazak",
+      "category": "ust",
+      "color": "lacivert",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is"
+      ],
+      "minTemp": -20,
+      "maxTemp": 15,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 6,
+      "subtype": "sweatshirt",
+      "category": "ust",
+      "color": "gri",
+      "tone": "orta",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "minTemp": -10,
+      "maxTemp": 20,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 7,
+      "subtype": "bluz",
+      "category": "ust",
+      "color": "pembe",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "minTemp": 0,
+      "maxTemp": 32,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 8,
+      "subtype": "atlet",
+      "category": "ust",
+      "color": "beyaz",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "minTemp": 22,
+      "maxTemp": 40,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 9,
+      "subtype": "kot",
+      "category": "alt",
+      "color": "lacivert",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "gunluk"
+      ],
+      "minTemp": -20,
+      "maxTemp": 30,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 10,
+      "subtype": "kot",
+      "category": "alt",
+      "color": "mavi",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk"
+      ],
+      "minTemp": -20,
+      "maxTemp": 30,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 11,
+      "subtype": "kumas_pantolon",
+      "category": "alt",
+      "color": "siyah",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "minTemp": -20,
+      "maxTemp": 30,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 12,
+      "subtype": "kumas_pantolon",
+      "category": "alt",
+      "color": "bej",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "minTemp": -20,
+      "maxTemp": 30,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 13,
+      "subtype": "esofman_alti",
+      "category": "alt",
+      "color": "gri",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "spor"
+      ],
+      "minTemp": -20,
+      "maxTemp": 25,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 14,
+      "subtype": "sort",
+      "category": "alt",
+      "color": "bej",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "minTemp": 22,
+      "maxTemp": 40,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 15,
+      "subtype": "etek",
+      "category": "alt",
+      "color": "kirmizi",
+      "tone": "orta",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "minTemp": 5,
+      "maxTemp": 35,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 16,
+      "subtype": "tayt",
+      "category": "alt",
+      "color": "siyah",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "minTemp": -10,
+      "maxTemp": 28,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 17,
+      "subtype": "spor_ayakkabi",
+      "category": "ayakkabi",
+      "color": "beyaz",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "minTemp": -10,
+      "maxTemp": 40,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": true,
+      "status": "onayli"
+    },
+    {
+      "id": 18,
+      "subtype": "klasik_ayakkabi",
+      "category": "ayakkabi",
+      "color": "siyah",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "minTemp": -10,
+      "maxTemp": 32,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 19,
+      "subtype": "bot",
+      "category": "ayakkabi",
+      "color": "kahverengi",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is"
+      ],
+      "minTemp": -25,
+      "maxTemp": 15,
+      "avoidWhenWet": false,
+      "preferredWhenWet": true,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 20,
+      "subtype": "sandalet",
+      "category": "ayakkabi",
+      "color": "bej",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk"
+      ],
+      "minTemp": 22,
+      "maxTemp": 45,
+      "avoidWhenWet": true,
+      "preferredWhenWet": false,
+      "preferredWhenHot": true,
+      "status": "onayli"
+    },
+    {
+      "id": 21,
+      "subtype": "babet",
+      "category": "ayakkabi",
+      "color": "lacivert",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "minTemp": 15,
+      "maxTemp": 35,
+      "avoidWhenWet": true,
+      "preferredWhenWet": false,
+      "preferredWhenHot": true,
+      "status": "onayli"
+    },
+    {
+      "id": 22,
+      "subtype": "terlik",
+      "category": "ayakkabi",
+      "color": "beyaz",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk"
+      ],
+      "minTemp": 24,
+      "maxTemp": 45,
+      "avoidWhenWet": true,
+      "preferredWhenWet": false,
+      "preferredWhenHot": true,
+      "status": "onayli"
+    },
+    {
+      "id": 23,
+      "subtype": "topuklu",
+      "category": "ayakkabi",
+      "color": "siyah",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "minTemp": 5,
+      "maxTemp": 35,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 24,
+      "subtype": "mont",
+      "category": "dis",
+      "color": "siyah",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is",
+        "spor"
+      ],
+      "minTemp": -20,
+      "maxTemp": 10,
+      "avoidWhenWet": false,
+      "preferredWhenWet": true,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 25,
+      "subtype": "kaban",
+      "category": "dis",
+      "color": "bej",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "minTemp": -20,
+      "maxTemp": 12,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 26,
+      "subtype": "ceket",
+      "category": "dis",
+      "color": "mavi",
+      "tone": "orta",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is"
+      ],
+      "minTemp": 8,
+      "maxTemp": 20,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 27,
+      "subtype": "blazer",
+      "category": "dis",
+      "color": "lacivert",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "is",
+        "davet"
+      ],
+      "minTemp": 10,
+      "maxTemp": 24,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 28,
+      "subtype": "yagmurluk",
+      "category": "dis",
+      "color": "sari",
+      "tone": "orta",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is",
+        "spor"
+      ],
+      "minTemp": 5,
+      "maxTemp": 22,
+      "avoidWhenWet": false,
+      "preferredWhenWet": true,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 29,
+      "subtype": "elbise",
+      "category": "tek_parca",
+      "color": "mavi",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "minTemp": 5,
+      "maxTemp": 38,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 30,
+      "subtype": "elbise",
+      "category": "tek_parca",
+      "color": "siyah",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "minTemp": 5,
+      "maxTemp": 38,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 31,
+      "subtype": "elbise",
+      "category": "tek_parca",
+      "color": "kirmizi",
+      "tone": "orta",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "minTemp": 5,
+      "maxTemp": 38,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 32,
+      "subtype": "tulum",
+      "category": "tek_parca",
+      "color": "bej",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "davet"
+      ],
+      "minTemp": 5,
+      "maxTemp": 32,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 33,
+      "subtype": "tulum",
+      "category": "tek_parca",
+      "color": "yesil",
+      "tone": "koyu",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "davet"
+      ],
+      "minTemp": 5,
+      "maxTemp": 32,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 34,
+      "subtype": "atki",
+      "category": "aksesuar",
+      "color": "gri",
+      "tone": "orta",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "is",
+        "davet"
+      ],
+      "minTemp": -30,
+      "maxTemp": 50,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    },
+    {
+      "id": 35,
+      "subtype": "sapka",
+      "category": "aksesuar",
+      "color": "beyaz",
+      "tone": "acik",
+      "isPatterned": false,
+      "styles": [
+        "gunluk",
+        "spor"
+      ],
+      "minTemp": -30,
+      "maxTemp": 50,
+      "avoidWhenWet": false,
+      "preferredWhenWet": false,
+      "preferredWhenHot": false,
+      "status": "onayli"
+    }
+  ],
+  "rejectedOutfits": [],
+  "history": [
+    {
+      "comparisonId": 4810,
+      "resultKey": "KT",
+      "completedAt": "2026-11-23T07:42:10Z",
+      "context": {
+        "feelsLikeTemp": 12.3,
+        "weatherCondition": "kapali",
+        "eventStyle": "gunluk"
+      },
+      "ruleOutfit": {
+        "template": "ust_alt",
+        "items": [
+          {
+            "id": 1,
+            "subtype": "tisort",
+            "category": "ust",
+            "color": "beyaz",
+            "tone": "acik",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "spor"
+            ],
+            "minTemp": 5,
+            "maxTemp": 40,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 9,
+            "subtype": "kot",
+            "category": "alt",
+            "color": "lacivert",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "gunluk"
+            ],
+            "minTemp": -20,
+            "maxTemp": 30,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 17,
+            "subtype": "spor_ayakkabi",
+            "category": "ayakkabi",
+            "color": "beyaz",
+            "tone": "acik",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "spor"
+            ],
+            "minTemp": -10,
+            "maxTemp": 40,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": true,
+            "status": "onayli"
+          }
+        ]
+      },
+      "learnedOutfit": {
+        "template": "ust_alt",
+        "items": [
+          {
+            "id": 2,
+            "subtype": "tisort",
+            "category": "ust",
+            "color": "siyah",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "spor"
+            ],
+            "minTemp": 5,
+            "maxTemp": 40,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 10,
+            "subtype": "kot",
+            "category": "alt",
+            "color": "mavi",
+            "tone": "acik",
+            "isPatterned": false,
+            "styles": [
+              "gunluk"
+            ],
+            "minTemp": -20,
+            "maxTemp": 30,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 17,
+            "subtype": "spor_ayakkabi",
+            "category": "ayakkabi",
+            "color": "beyaz",
+            "tone": "acik",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "spor"
+            ],
+            "minTemp": -10,
+            "maxTemp": 40,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": true,
+            "status": "onayli"
+          }
+        ]
+      },
+      "finalOutfit": null
+    },
+    {
+      "comparisonId": 4826,
+      "resultKey": "OD",
+      "completedAt": "2026-11-23T16:05:44Z",
+      "context": {
+        "feelsLikeTemp": 8.1,
+        "weatherCondition": "yagmurlu",
+        "eventStyle": "is"
+      },
+      "ruleOutfit": {
+        "template": "ust_alt",
+        "items": [
+          {
+            "id": 3,
+            "subtype": "gomlek",
+            "category": "ust",
+            "color": "mavi",
+            "tone": "acik",
+            "isPatterned": true,
+            "styles": [
+              "is",
+              "davet"
+            ],
+            "minTemp": -10,
+            "maxTemp": 28,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "silindi"
+          },
+          {
+            "id": 11,
+            "subtype": "kumas_pantolon",
+            "category": "alt",
+            "color": "siyah",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "is",
+              "davet"
+            ],
+            "minTemp": -20,
+            "maxTemp": 30,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 18,
+            "subtype": "klasik_ayakkabi",
+            "category": "ayakkabi",
+            "color": "siyah",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "is",
+              "davet"
+            ],
+            "minTemp": -10,
+            "maxTemp": 32,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          }
+        ]
+      },
+      "learnedOutfit": {
+        "template": "ust_alt",
+        "items": [
+          {
+            "id": 4,
+            "subtype": "gomlek",
+            "category": "ust",
+            "color": "beyaz",
+            "tone": "acik",
+            "isPatterned": false,
+            "styles": [
+              "is",
+              "davet"
+            ],
+            "minTemp": -10,
+            "maxTemp": 28,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 12,
+            "subtype": "kumas_pantolon",
+            "category": "alt",
+            "color": "bej",
+            "tone": "acik",
+            "isPatterned": false,
+            "styles": [
+              "is",
+              "davet"
+            ],
+            "minTemp": -20,
+            "maxTemp": 30,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 18,
+            "subtype": "klasik_ayakkabi",
+            "category": "ayakkabi",
+            "color": "siyah",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "is",
+              "davet"
+            ],
+            "minTemp": -10,
+            "maxTemp": 32,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          }
+        ]
+      },
+      "finalOutfit": {
+        "template": "ust_alt",
+        "items": [
+          {
+            "id": 4,
+            "subtype": "gomlek",
+            "category": "ust",
+            "color": "beyaz",
+            "tone": "acik",
+            "isPatterned": false,
+            "styles": [
+              "is",
+              "davet"
+            ],
+            "minTemp": -10,
+            "maxTemp": 28,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 11,
+            "subtype": "kumas_pantolon",
+            "category": "alt",
+            "color": "siyah",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "is",
+              "davet"
+            ],
+            "minTemp": -20,
+            "maxTemp": 30,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 18,
+            "subtype": "klasik_ayakkabi",
+            "category": "ayakkabi",
+            "color": "siyah",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "is",
+              "davet"
+            ],
+            "minTemp": -10,
+            "maxTemp": 32,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 34,
+            "subtype": "atki",
+            "category": "aksesuar",
+            "color": "gri",
+            "tone": "orta",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "is",
+              "davet"
+            ],
+            "minTemp": -30,
+            "maxTemp": 50,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          }
+        ]
+      }
+    },
+    {
+      "comparisonId": 4833,
+      "resultKey": "HB",
+      "completedAt": "2026-11-24T06:58:02Z",
+      "context": {
+        "feelsLikeTemp": 5.6,
+        "weatherCondition": "karli",
+        "eventStyle": "gunluk"
+      },
+      "ruleOutfit": {
+        "template": "tek_parca",
+        "items": [
+          {
+            "id": 30,
+            "subtype": "elbise",
+            "category": "tek_parca",
+            "color": "siyah",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "is",
+              "davet"
+            ],
+            "minTemp": 5,
+            "maxTemp": 38,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 19,
+            "subtype": "bot",
+            "category": "ayakkabi",
+            "color": "kahverengi",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "is"
+            ],
+            "minTemp": -25,
+            "maxTemp": 15,
+            "avoidWhenWet": false,
+            "preferredWhenWet": true,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 25,
+            "subtype": "kaban",
+            "category": "dis",
+            "color": "bej",
+            "tone": "acik",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "is",
+              "davet"
+            ],
+            "minTemp": -20,
+            "maxTemp": 12,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          }
+        ]
+      },
+      "learnedOutfit": {
+        "template": "ust_alt",
+        "items": [
+          {
+            "id": 5,
+            "subtype": "kazak",
+            "category": "ust",
+            "color": "lacivert",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "is"
+            ],
+            "minTemp": -20,
+            "maxTemp": 15,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 9,
+            "subtype": "kot",
+            "category": "alt",
+            "color": "lacivert",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "gunluk"
+            ],
+            "minTemp": -20,
+            "maxTemp": 30,
+            "avoidWhenWet": false,
+            "preferredWhenWet": false,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 19,
+            "subtype": "bot",
+            "category": "ayakkabi",
+            "color": "kahverengi",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "is"
+            ],
+            "minTemp": -25,
+            "maxTemp": 15,
+            "avoidWhenWet": false,
+            "preferredWhenWet": true,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          },
+          {
+            "id": 24,
+            "subtype": "mont",
+            "category": "dis",
+            "color": "siyah",
+            "tone": "koyu",
+            "isPatterned": false,
+            "styles": [
+              "gunluk",
+              "is",
+              "spor"
+            ],
+            "minTemp": -20,
+            "maxTemp": 10,
+            "avoidWhenWet": false,
+            "preferredWhenWet": true,
+            "preferredWhenHot": false,
+            "status": "onayli"
+          }
+        ]
+      },
+      "finalOutfit": null
+    }
+  ]
+}
