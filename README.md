@@ -6,6 +6,7 @@ E2 modülü, bu adaylar arasından sabit renk kurallarıyla Kural Kartı seçer.
 E3 modülü, kombin ve bağlamı öğrenen yöntemin kullanacağı sayısal özelliklere dönüştürür.
 E4 modülü, kullanıcının geçmiş kararlarından öğrenerek aynı aday havuzundan Öğrenen Kartı seçer.
 E6 modülü, iki karta birlikte eklenecek aksesuarları ortak ve sabit bir kuralla seçer.
+E7, bunları C#'ın çağırdığı `POST /recommend` ucunda birleştirir.
 E10 modülü, sentetik bir kullanıcı profiliyle iki kartı karşılaştırıp öğrenme grafiği üretir.
 
 ## İş bölümü
@@ -22,9 +23,8 @@ kıyafet verilerini kullanır; mevcut test dolabı bu verileri temsil eder.
 ## Kurulum
 
 Python 3.12 kullanılır. E1, E2 ve E3 yalnız standart kütüphaneye ihtiyaç duyar;
-E4 için sürümü sabitlenmiş scikit-learn, E10 grafiği için matplotlib ve
-bunların bağımlılıkları kurulur.
-FastAPI veya pandas kurulması gerekmez.
+E4 için sürümü sabitlenmiş scikit-learn, E10 grafiği için matplotlib, servis ve
+E7 `/recommend` ucu için FastAPI ve bunların bağımlılıkları kurulur. pandas gerekmez.
 
 ```bash
 python3.12 -m venv .venv
@@ -285,6 +285,32 @@ Eşikler ve izin tablosu [aksesuar ayarlarında](recommendation/accessory_settin
 durur. Parçanın `styles` alanı aksesuarda kullanılmaz. Aksesuar seçimi öğrenmeye girmez.
 Kural gerekçeleri ve seçilen yorumlar [E6 rapor notunda](docs/E6-notes.md) açıklanır.
 
+## E7 davranışı
+
+`POST /recommend`, A3 sözleşmesinin 6. bölümüne göre bir karşılaştırmanın iki kartını
+birlikte üretir. E1 bir kez çalışır; E2 Kural Kartını ve E4 Öğrenen Kartı aynı havuzdan
+seçer; E6 iki karta aynı aksesuarları ekler. İki yöntem aynı ana parça kümesini seçtiyse
+`isSameOutfit: true` döner ve aksesuar tek karta göre seçilir. Uygun kombin yoksa
+`{"status": "no_candidates"}` döner; bu bir hata değildir.
+
+```bash
+python -m uvicorn service.main:app --reload
+curl -X POST http://127.0.0.1:8000/recommend -H 'Content-Type: application/json' \
+  --data @tests/contracts/recommend-request.json
+```
+
+İstek camelCase gelir; [schemas.py](recommendation/schemas.py) bunu mevcut `ClothingItem`,
+`Weather` ve `ComparisonDecision` modellerine çevirir. Akış FastAPI'den bağımsız olarak
+[recommend.py](recommendation/recommend.py) içindedir. Bilinmeyen alan, yanlış tür,
+bilinmeyen kod ya da geçmişte `KT, KD, KR, OT, OD, OR, HB` dışındaki bir sonuç
+`422 {"code": "invalid_request", ...}`, beklenmeyen hata `500 {"code": "internal_error", ...}`
+döner. FastAPI'nin `{"detail": [...]}` cevabı dönmez. Model saklanmaz; her istekte geçmişten
+yeniden eğitilir.
+
+[tests/contracts/](tests/contracts/) api deposundaki sözleşme örneklerinin kopyasıdır
+(`contracts/examples/`, A3 PR #6). Sözleşme değişirse bu kopyalar da güncellenir.
+Ayrıntılar [E7 rapor notunda](docs/E7-notes.md).
+
 ## E10 davranışı
 
 **Sonuçlar sentetiktir; gerçek kullanıcı verisi değildir.**
@@ -306,4 +332,5 @@ vardır. İlk profil `notr_koyu`; kalan dört profil persona kartları kesinleş
 Geliştirme durumu, test sonuçları, uygulama kararları ve bekleyen işler
 [E1 rapor notunda](docs/E1-notes.md), [E2 rapor notunda](docs/E2-notes.md),
 [E3 rapor notunda](docs/E3-notes.md), [E4 rapor notunda](docs/E4-notes.md),
-[E6 rapor notunda](docs/E6-notes.md) ve [E10 rapor notunda](docs/E10-notes.md) tutulur.
+[E6 rapor notunda](docs/E6-notes.md), [E7 rapor notunda](docs/E7-notes.md) ve
+[E10 rapor notunda](docs/E10-notes.md) tutulur.

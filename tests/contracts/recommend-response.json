@@ -1,0 +1,26 @@
+{
+  "status": "ok",
+  "ruleOutfit": {
+    "template": "ust_alt",
+    "itemIds": [
+      1,
+      10,
+      17,
+      24
+    ]
+  },
+  "learnedOutfit": {
+    "template": "ust_alt",
+    "itemIds": [
+      5,
+      9,
+      17,
+      24
+    ]
+  },
+  "isSameOutfit": false,
+  "learnedPickMode": "model",
+  "accessoryIds": [
+    34
+  ]
+}
