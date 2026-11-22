@@ -66,15 +66,15 @@ class StorageTest(unittest.TestCase):
         client, seen = self._client()
         path = storage.upload_webp(b"webp", "user-123", supabase_url="https://x.supabase.co/",
                                    service_key="k", bucket="gorseller", client=client)
-        self.assertRegex(path, r"^gorseller/user-123/[0-9a-f]{32}\.webp$")
-        self.assertEqual(seen["url"], f"https://x.supabase.co/storage/v1/object/{path}")
+        self.assertRegex(path, r"^user-123/[0-9a-f]{32}\.webp$")
+        self.assertEqual(seen["url"], f"https://x.supabase.co/storage/v1/object/gorseller/{path}")
         self.assertEqual(seen["headers"]["content-type"], "image/webp")
         self.assertEqual(seen["body"], b"webp")
 
     def test_unsafe_user_id_is_rejected(self):
         for bad in ("../x", "a/b", "", "a b"):
             with self.assertRaises(ValueError):
-                storage.build_path("gorseller", bad)
+                storage.build_path(bad)
 
     def test_failed_upload_raises(self):
         client, _ = self._client(403)
