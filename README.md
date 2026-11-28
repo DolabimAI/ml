@@ -266,6 +266,32 @@ eşikleri, keşif oranını ve model parametrelerini içerir.
 `tests/sample_history.json`, `demo` kullanıcısı için 12 sentetik son kararın tam
 etiket kopyalarını içerir. Bu JSON yerel test sözleşmesidir; C# API sözleşmesi değildir.
 
+## E5 davranışı
+
+`POST /swap`, A3 sözleşmesinin 7. bölümüne göre seçilen kombinde tek bir parçayı ya da
+aksesuarı değiştirir ve tek bir yeni parça önerir: `{"status": "ok", "newItemId": 6}`.
+Uygun parça kalmadıysa `{"status": "no_alternative"}` döner; bu bir hata değildir.
+
+- `kural`: hedef yere gelebilecek her parça, kombinin kalan parçalarıyla E2'ye göre
+  puanlanır; en yüksek puanlı seçilir.
+- `ogrenen`: E4 modeli `history` ile bu istekte eğitilir; o yer için en yüksek olasılıklı
+  parça seçilir. Değiştirmede keşif yoktur; soğuk başlangıçta aday rastgele seçilir.
+- `ortak_kural`: hedef aksesuarla aynı alt türden, E6'nın aday adımlarından geçen
+  aksesuarlar kombinin o anki hâline göre sıralanır; ilk sıradaki önerilir.
+
+E1'in ortak ön filtresi ([filter.py](recommendation/filter.py) `filter_slots`) geçerlidir.
+`excludedItemIds` ve şu anki parça filtreden sonra çıkarılır; ıslak/sıcak yedeğini
+tetiklemez. Akış FastAPI'den bağımsız olarak [swap.py](recommendation/swap.py) içindedir.
+Hata biçimi `/recommend` ile aynıdır.
+
+```bash
+python -m uvicorn service.main:app --reload
+curl -X POST http://127.0.0.1:8000/swap -H 'Content-Type: application/json' \
+  --data-binary @tests/contracts/swap-request.json
+```
+
+Ayrıntılar ve seçilen yorumlar [E5 rapor notunda](docs/E5-notes.md).
+
 ## E6 davranışı
 
 `select_accessories(cards, wardrobe, weather, style, is_daytime=..., wants_accessories=...)`
@@ -279,7 +305,7 @@ puanına göre puanlanır ve iki kartın ortalaması en yüksek olan seçilir; t
 o kart kullanılır. Referans parça dış giyimdir, yoksa üst giyim, tek parça şablonunda tek
 parçadır. Eşit puanlılar dışarıdan verilen `rng` ile seçilir. E5 aksesuar değiştirmede
 (`ortak_kural`) aynı `accessory_candidates` ve `rank_accessories` fonksiyonlarını seçilen
-kombinin o anki hâliyle kullanacak.
+kombinin o anki hâliyle kullanır.
 
 Eşikler ve izin tablosu [aksesuar ayarlarında](recommendation/accessory_settings.json)
 durur. Parçanın `styles` alanı aksesuarda kullanılmaz. Aksesuar seçimi öğrenmeye girmez.
@@ -332,5 +358,5 @@ vardır. İlk profil `notr_koyu`; kalan dört profil persona kartları kesinleş
 Geliştirme durumu, test sonuçları, uygulama kararları ve bekleyen işler
 [E1 rapor notunda](docs/E1-notes.md), [E2 rapor notunda](docs/E2-notes.md),
 [E3 rapor notunda](docs/E3-notes.md), [E4 rapor notunda](docs/E4-notes.md),
-[E6 rapor notunda](docs/E6-notes.md), [E7 rapor notunda](docs/E7-notes.md) ve
+[E5 rapor notunda](docs/E5-notes.md), [E6 rapor notunda](docs/E6-notes.md), [E7 rapor notunda](docs/E7-notes.md) ve
 [E10 rapor notunda](docs/E10-notes.md) tutulur.

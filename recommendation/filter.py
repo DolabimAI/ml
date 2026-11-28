@@ -28,6 +28,49 @@ class CandidatePool:
     limit_reached: bool
 
 
+def filter_slots(
+    clothes: Sequence[ClothingItem],
+    weather: Weather,
+    style: str,
+    settings: FilterSettings,
+) -> tuple[dict[str, list[ClothingItem]], list[str]]:
+    """Ortak ön filtre: yerlere (kategorilere) göre geçen ana parçalar ve kullanılan yedekler.
+
+    Sıra: onaylı ana parça → sıcaklık → etkinlik → ıslak gün ya da sıcak gün. Yedek yalnız
+    ıslak/sıcak adımını, yalnız boş kalan yer için gevşetir. E1 ve E5 aynı filtreyi kullanır;
+    tekrar engeli ve dışlanan parçalar bu adımdan sonra uygulanır.
+    """
+    slots: dict[str, list[ClothingItem]] = defaultdict(list)
+    for item in clothes:
+        if item.status != "onayli" or item.category == "aksesuar":
+            continue
+        if not item.min_temp <= weather.feels_like_temp <= item.max_temp:
+            continue
+        if style not in item.styles:
+            continue
+        slots[item.category].append(item)
+
+    fallbacks = []
+
+    def restrict_slot(category: str, predicate, reason: str) -> None:
+        original = slots[category]
+        if not original:
+            return  # Önceki sıcaklık/etkinlik filtresinin elediğini geri getirme.
+        preferred = [item for item in original if predicate(item)]
+        if preferred:
+            slots[category] = preferred
+        else:
+            fallbacks.append(f"{reason}:{category}")
+
+    if weather.has_flag("is_wet"):
+        restrict_slot("ayakkabi", lambda item: not item.avoid_when_wet, "islak")
+        restrict_slot("dis", lambda item: item.preferred_when_wet, "islak")
+    elif weather.feels_like_temp >= settings.hot_threshold_c and weather.has_flag("is_sunny"):
+        restrict_slot("ayakkabi", lambda item: item.preferred_when_hot, "sicak")
+
+    return slots, fallbacks
+
+
 def generate_candidates(
     clothes: Sequence[ClothingItem],
     weather: Weather,
@@ -56,33 +99,7 @@ def generate_candidates(
             raise ValueError("Reddedilen kombin benzersiz pozitif parça id'leri içermeli")
         rejected.add(tuple(sorted(ids)))
 
-    slots: dict[str, list[ClothingItem]] = defaultdict(list)
-    for item in clothes:
-        if item.status != "onayli" or item.category == "aksesuar":
-            continue
-        if not item.min_temp <= weather.feels_like_temp <= item.max_temp:
-            continue
-        if style not in item.styles:
-            continue
-        slots[item.category].append(item)
-
-    fallbacks = []
-
-    def restrict_slot(category: str, predicate, reason: str) -> None:
-        original = slots[category]
-        if not original:
-            return  # Önceki sıcaklık/etkinlik filtresinin elediğini geri getirme.
-        preferred = [item for item in original if predicate(item)]
-        if preferred:
-            slots[category] = preferred
-        else:
-            fallbacks.append(f"{reason}:{category}")
-
-    if weather.has_flag("is_wet"):
-        restrict_slot("ayakkabi", lambda item: not item.avoid_when_wet, "islak")
-        restrict_slot("dis", lambda item: item.preferred_when_wet, "islak")
-    elif weather.feels_like_temp >= settings.hot_threshold_c and weather.has_flag("is_sunny"):
-        restrict_slot("ayakkabi", lambda item: item.preferred_when_hot, "sicak")
+    slots, fallbacks = filter_slots(clothes, weather, style, settings)
 
     # Dış giyim yalnız sıcaklık ve etkinlikten geçen parçalardan eklenir.
     # Uygun dış giyim varsa tüm adaylara bir dış giyim eklenir; yoksa eklenmez.
