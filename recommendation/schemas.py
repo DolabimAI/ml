@@ -1,4 +1,4 @@
-"""E7: A3 sözleşmesindeki /recommend istek biçimi (camelCase) ve iç modellere çevrimi.
+"""E7, E5: A3 sözleşmesindeki /recommend ve /swap istek biçimleri (camelCase) ve iç modellere çevrimi.
 
 JSON alanları camelCase gelir; iç kod snake_case kalır. Modeller sıkıdır: bilinmeyen alan,
 yanlış tür ("true" metni, "1" metni) ve bilinmeyen kod `invalid_request` olarak reddedilir.
@@ -91,6 +91,32 @@ class HistoryIn(ContractModel):
         )
 
 
+def _validated_wardrobe(context: ContextIn, items: list[ItemIn]) -> tuple[ClothingItem, ...]:
+    if context.event_style not in load_catalog()["styles"]:
+        raise ValueError(f"Bilinmeyen etkinlik: {context.event_style}")
+    wardrobe = tuple(item.to_domain() for item in items)
+    if len({item.id for item in wardrobe}) != len(wardrobe):
+        raise ValueError("wardrobe aynı parça id'sini birden fazla kez içeremez")
+    return wardrobe
+
+
+def _validated_history(entries: list[HistoryIn], user_id: str) -> tuple[ComparisonDecision, ...]:
+    comparison_ids = [entry.comparison_id for entry in entries]
+    if len(comparison_ids) != len(set(comparison_ids)):
+        raise ValueError("history aynı comparisonId'yi birden fazla kez içeremez")
+    return tuple(entry.to_domain(user_id) for entry in entries)
+
+
+def _context_kwargs(context: ContextIn, wardrobe: tuple[ClothingItem, ...]) -> dict:
+    return {
+        "wardrobe": wardrobe,
+        "weather": Weather(context.feels_like_temp, context.weather_condition),
+        "style": context.event_style,
+        "is_daytime": context.is_daytime,
+        "wants_accessories": context.wants_accessories,
+    }
+
+
 class RecommendRequest(ContractModel):
     user_id: UUID
     context: ContextIn
@@ -105,26 +131,93 @@ class RecommendRequest(ContractModel):
         sırasında çıkan her hata gerçekten beklenmeyen (`internal_error`) bir hatadır.
         """
         context = self.context
-        if context.event_style not in load_catalog()["styles"]:
-            raise ValueError(f"Bilinmeyen etkinlik: {context.event_style}")
-        wardrobe = tuple(item.to_domain() for item in self.wardrobe)
-        if len({item.id for item in wardrobe}) != len(wardrobe):
-            raise ValueError("wardrobe aynı parça id'sini birden fazla kez içeremez")
+        wardrobe = _validated_wardrobe(context, self.wardrobe)
         for ids in self.rejected_outfits:
             if not ids or any(i < 1 for i in ids) or len(ids) != len(set(ids)):
                 raise ValueError("rejectedOutfits her biri benzersiz pozitif id'lerden oluşan "
                                  "boş olmayan listeler içermeli")
-        comparison_ids = [entry.comparison_id for entry in self.history]
-        if len(comparison_ids) != len(set(comparison_ids)):
-            raise ValueError("history aynı comparisonId'yi birden fazla kez içeremez")
         user_id = str(self.user_id)
         return {
-            "wardrobe": wardrobe,
-            "weather": Weather(context.feels_like_temp, context.weather_condition),
-            "style": context.event_style,
-            "is_daytime": context.is_daytime,
-            "wants_accessories": context.wants_accessories,
+            **_context_kwargs(context, wardrobe),
             "rejected_outfits": tuple(tuple(ids) for ids in self.rejected_outfits),
-            "history": tuple(entry.to_domain(user_id) for entry in self.history),
+            "history": _validated_history(self.history, user_id),
+            "user_id": user_id,
+        }
+
+
+TEMPLATE_CATEGORIES = {
+    "ust_alt": ({"ust", "alt", "ayakkabi"}, {"dis"}),
+    "tek_parca": ({"tek_parca", "ayakkabi"}, {"dis"}),
+}
+
+
+class CurrentOutfitIn(ContractModel):
+    template: Literal["ust_alt", "tek_parca"]
+    item_ids: list[int]
+    accessory_ids: list[int]
+
+
+class SwapRequest(ContractModel):
+    user_id: UUID
+    method: Literal["kural", "ogrenen", "ortak_kural"]
+    context: ContextIn
+    current_outfit: CurrentOutfitIn
+    target_category: str | None = None
+    target_accessory_id: int | None = None
+    excluded_item_ids: list[int]
+    wardrobe: list[ItemIn]
+    history: list[HistoryIn]
+
+    def to_domain(self) -> dict:
+        """`swap()` için anahtar kelime argümanları (rng hariç).
+
+        Kombin, hedef ve yöntem tutarlılığı burada denetlenir; hesaplama sırasında çıkan
+        her hata gerçekten beklenmeyen (`internal_error`) bir hatadır.
+        """
+        wardrobe = _validated_wardrobe(self.context, self.wardrobe)
+        by_id = {item.id: item for item in wardrobe}
+        current = self.current_outfit
+
+        ids = current.item_ids + current.accessory_ids
+        if len(ids) != len(set(ids)):
+            raise ValueError("currentOutfit aynı parçayı birden fazla kez içeremez")
+        missing = [i for i in ids if i not in by_id]
+        if missing:
+            raise ValueError(f"currentOutfit parçaları wardrobe'da yok: {missing}")
+        items = tuple(by_id[i] for i in current.item_ids)
+        accessories = tuple(by_id[i] for i in current.accessory_ids)
+        categories = [item.category for item in items]
+        required, optional = TEMPLATE_CATEGORIES[current.template]
+        if len(categories) != len(set(categories)) or not required <= set(categories) <= required | optional:
+            raise ValueError(f"currentOutfit.itemIds {current.template} şablonuna uymuyor")
+        if any(item.category != "aksesuar" for item in accessories):
+            raise ValueError("currentOutfit.accessoryIds yalnız aksesuar içerebilir")
+
+        if self.method == "ortak_kural":
+            if self.target_category is not None or self.target_accessory_id is None:
+                raise ValueError("ortak_kural yalnız targetAccessoryId ile kullanılır")
+            if self.target_accessory_id not in current.accessory_ids:
+                raise ValueError("targetAccessoryId kombindeki aksesuarlardan biri olmalı")
+        else:
+            if self.target_category is None or self.target_accessory_id is not None:
+                raise ValueError(f"{self.method} yalnız targetCategory ile kullanılır")
+            if self.target_category not in categories:
+                raise ValueError("targetCategory kombindeki ana parçalardan birinin kategorisi olmalı")
+
+        if any(i < 1 for i in self.excluded_item_ids):
+            raise ValueError("excludedItemIds pozitif id'lerden oluşmalı")
+        if self.history and self.method != "ogrenen":
+            raise ValueError("history yalnız ogrenen yönteminde dolu olabilir")
+
+        user_id = str(self.user_id)
+        return {
+            **_context_kwargs(self.context, wardrobe),
+            "method": self.method,
+            "outfit": Outfit(current.template, items),
+            "accessories": accessories,
+            "target_category": self.target_category,
+            "target_accessory_id": self.target_accessory_id,
+            "excluded_item_ids": frozenset(self.excluded_item_ids),
+            "history": _validated_history(self.history, user_id),
             "user_id": user_id,
         }

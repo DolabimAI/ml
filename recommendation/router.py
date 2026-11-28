@@ -1,4 +1,4 @@
-"""E7: POST /recommend ucu (A3 sözleşmesi, bölüm 6).
+"""E7, E5: POST /recommend ve POST /swap uçları (A3 sözleşmesi, bölüm 6 ve 7).
 
 `service/main.py` bu dosyadaki `router`'ı kendiliğinden bağlar. Hatalar sözleşmenin
 `{code, message}` biçimindedir; FastAPI'nin `{"detail": [...]}` cevabı hiç dönmez.
@@ -16,7 +16,8 @@ from starlette.concurrency import run_in_threadpool
 
 from .filter import Outfit
 from .recommend import recommend
-from .schemas import RecommendRequest
+from .schemas import RecommendRequest, SwapRequest
+from .swap import swap
 
 router = APIRouter(tags=["recommendation"])
 log = logging.getLogger(__name__)
@@ -74,3 +75,26 @@ async def recommend_endpoint(request: Request, rng: random.Random = Depends(get_
         "learnedPickMode": result.learned_pick_mode,
         "accessoryIds": [item.id for item in result.accessories],
     })
+
+
+@router.post("/swap")
+async def swap_endpoint(request: Request, rng: random.Random = Depends(get_rng)) -> JSONResponse:
+    try:
+        inputs = SwapRequest.model_validate_json(await request.body()).to_domain()
+    except ValidationError as error:  # ValueError'ın alt sınıfı; önce yakalanır.
+        return _error(422, "invalid_request", _describe(error))
+    except ValueError as error:
+        return _error(422, "invalid_request", str(error))
+
+    started = time.perf_counter()
+    try:
+        item = await run_in_threadpool(lambda: swap(**inputs, rng=rng))
+    except Exception:
+        log.exception("/swap beklenmeyen hata")
+        return _error(500, "internal_error", INTERNAL_ERROR_MESSAGE)
+    log.info("/swap %s %.0f ms, %d parça, %d geçmiş karar", inputs["method"],
+             (time.perf_counter() - started) * 1000, len(inputs["wardrobe"]), len(inputs["history"]))
+
+    if item is None:
+        return JSONResponse({"status": "no_alternative"})
+    return JSONResponse({"status": "ok", "newItemId": item.id})
